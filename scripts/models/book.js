@@ -25,7 +25,10 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
   };
 
   Book.all = [];
-  Book.loadAll = rows => Book.all = rows.sort((a, b) => b.title - a.title).map(book => new Book(book));
+  Book.loadAll = rows => {
+    console.log('this is a row',rows);
+    Book.all = rows.sort((a, b) => b.title - a.title).map(book => new Book(book));
+  };
 
   Book.fetchAll = callback =>
     $.get(`${ENV.apiUrl}/api/v1/books`)
