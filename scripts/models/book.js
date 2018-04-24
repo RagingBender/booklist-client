@@ -26,29 +26,30 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
 
   Book.all = [];
   Book.loadAll = rows => {
-    console.log('this is a row',rows);
     Book.all = rows.sort((a, b) => b.title - a.title).map(book => new Book(book));
   };
 
   Book.fetchAll = callback =>
-    $.get(`${ENV.apiUrl}/api/v1/books`)
-      .then(Book.loadAll)
+    $.get(`${ENV.apiUrl}api/v1/books`)
+      .then(books => {
+        Book.loadAll(books);
+      })
       .then(callback)
       .catch(errorCallback);
 
   Book.fetchOne = (id) => {
-    return $.getJSON(ENV.apiUrl + '/api/v1/books/' + id)
+    return $.getJSON(ENV.apiUrl + 'api/v1/books/' + id)
       .catch(err => console.error(err));
   };
 
   Book.create = book => {
-    $.post(ENV.apiUrl + '/api/v1/books/', book)
+    $.post(ENV.apiUrl + 'api/v1/books/', book)
       .then(() => page('/'))
       .catch(err => console.error(err));
   };
 
   Book.prototype.insertRecord = function(callback) {
-    $.post(`${ENV.apiUrl}/api/v1/books/`,
+    $.post(`${ENV.apiUrl}api/v1/books/`,
       {title: this.title, author: this.author, isbn: this.isbn, image_url: this.image_url, description: this.description})
       .then(callback);
   };
