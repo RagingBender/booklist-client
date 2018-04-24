@@ -1,2 +1,0 @@
-# booklist-client
-client information
