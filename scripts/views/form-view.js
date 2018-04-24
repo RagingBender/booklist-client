@@ -14,7 +14,7 @@ var app = app || {};
         title: event.target.title.value,
         author: event.target.author.value,
         isbn: event.target.isbn.value,
-        img_url: event.target.img_url.value,
+        image_url: event.target.image_url.value,
         description: event.target.description.value
       };
       module.Book.create(book);
